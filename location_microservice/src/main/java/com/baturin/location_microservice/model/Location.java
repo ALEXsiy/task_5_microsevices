@@ -1,23 +1,19 @@
 package com.baturin.location_microservice.model;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.util.List;
-
+@Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Location {
+   @Id @GeneratedValue
     int id;
     private double lon;
     private double lat;
-    private String city_name;
-   public Location findByCityName(String city_name, List<Location> listlocations) {
-        for(Location location : listlocations) {
-            if(location.getCity_name().equals(city_name)) {
-                return location;
-            }
-        }
-        return null;
-    }
+    private String name;
 }

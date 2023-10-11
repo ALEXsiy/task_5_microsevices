@@ -30,7 +30,7 @@ public class PersonController {
         Optional<Person> optional_person = personrepository.findById(id);
         if (optional_person.isPresent()) {
             Person person = optional_person.get();
-            Location location =restTemplate.getForObject("http://localhost:8081/locations/"+person.getCity_name(), Location.class);
+            Location location =restTemplate.getForObject("http://localhost:8081/getLocation?name="+person.getCity_name(), Location.class);
             person.setLocation(location);
             Weather weather = new Weather();
             if(location!=null) {
@@ -38,7 +38,8 @@ public class PersonController {
             }
             person.setWeather(weather);
             return weather;
-        }
+
+       }
         return new Weather();
     }
 
@@ -47,6 +48,12 @@ public class PersonController {
         if(personrepository.findById(person.getId()).isPresent())
         return new ResponseEntity(personrepository.findById(person.getId()), HttpStatus.BAD_REQUEST);
         else return new ResponseEntity(personrepository.save(person), HttpStatus.CREATED);
+    }
+    @PostMapping("/saveLocations")
+    public ResponseEntity<Location> saveLocations(@RequestBody Location location) {
+
+        return restTemplate.postForEntity("http://localhost:8081/saveLocation",location, Location.class);
+
     }
 
 }

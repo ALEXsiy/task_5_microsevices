@@ -17,7 +17,7 @@ public class Location {
         int id;
         private double lon;
         private double lat;
-        private String city_name;
+        private String name;
 
 
 
