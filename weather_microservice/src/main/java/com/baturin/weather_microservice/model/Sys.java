@@ -7,9 +7,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class Weather{
+public class Sys{
+    private int type;
     private int id;
-    private String main;
-    private String description;
-    private String icon;
+    private String country;
+    private int sunrise;
+    private int sunset;
 }
