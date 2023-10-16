@@ -36,6 +36,7 @@ public class WeatherController {
         return repository.findByName(location);
     }
 
+    //Проверка на уникальность значений при добавлении
     @PostMapping
     public ResponseEntity<Geodata> save(@RequestBody Geodata geodata) {
         Optional<Geodata> geodata_optional = repository.findByName(geodata.getName());
