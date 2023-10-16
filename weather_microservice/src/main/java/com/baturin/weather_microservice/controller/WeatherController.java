@@ -19,7 +19,6 @@ public class WeatherController {
         @Value("${url.weather}")
         private String urlWeather;
 
-        //http://localhost:8082/?lat=54.1838&lon=45.1749            <<<<<<<<<
         @GetMapping
        @Cacheable(value = "cacheForWeathers",key = "#lat+':'+#lon")
         public Main getWeather(@RequestParam String lat, @RequestParam String lon) {

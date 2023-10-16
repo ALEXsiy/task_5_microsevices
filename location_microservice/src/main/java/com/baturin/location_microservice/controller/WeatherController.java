@@ -23,7 +23,7 @@ public class WeatherController {
         Optional<Geodata> geodata_optional = repository.findByName(location);
         if(geodata_optional.isPresent()) {
             Geodata geodata=geodata_optional.get();
-            String url = String.format("http://localhost:8082/?lat=%s&lon=%s", geodata.getLat(), geodata.getLon());
+            String url = String.format("http://weather-info-service/?lat=%s&lon=%s", geodata.getLat(), geodata.getLon());
             Weather weather = restTemplate.getForObject(url, Weather.class);
             return new ResponseEntity<>(weather,HttpStatus.OK);
         }
@@ -37,8 +37,12 @@ public class WeatherController {
     }
 
     @PostMapping
-    public Geodata save(@RequestBody Geodata geodata) {
-        return repository.save(geodata);
+    public ResponseEntity<Geodata> save(@RequestBody Geodata geodata) {
+        Optional<Geodata> geodata_optional = repository.findByName(geodata.getName());
+        if(geodata_optional.isPresent()) {
+            return new ResponseEntity<>(geodata_optional.get(),HttpStatus.OK);
+        }
+        else return new ResponseEntity<>(repository.save(geodata),HttpStatus.CREATED);
     }
 
 }

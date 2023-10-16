@@ -1,4 +1,4 @@
-package com.baturin.location_microservice.configuration;
+package com.baturin.person_microservice.configuration;
 
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
