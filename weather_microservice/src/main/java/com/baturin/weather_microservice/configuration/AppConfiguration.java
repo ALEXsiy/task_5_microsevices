@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit;
 
 @Configuration
 public class AppConfiguration {
-    @LoadBalanced
+    //@LoadBalanced
     @Bean
     public RestTemplate getRestTemplate() {
         return new RestTemplate();

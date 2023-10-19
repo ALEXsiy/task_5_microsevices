@@ -27,7 +27,6 @@ public class PersonController {
         }
         return new ResponseEntity(null, HttpStatus.NOT_FOUND);
     }
-
     @GetMapping
     public Iterable<Person> findAll() {
         return repository.findAll();

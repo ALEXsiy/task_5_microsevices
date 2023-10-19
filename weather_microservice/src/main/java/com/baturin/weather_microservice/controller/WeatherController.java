@@ -12,19 +12,18 @@ import org.springframework.web.client.RestTemplate;
 @RestController
 public class WeatherController {
 
-        @Autowired
-        private RestTemplate restTemplate;
-        @Value("${appid}")
-        private String appId;
-        @Value("${url.weather}")
-        private String urlWeather;
+    @Autowired
+    private RestTemplate restTemplate;
+    @Value("${appid}")
+    private String appId;
+    @Value("${url.weather}")
+    private String urlWeather;
 
-        @GetMapping
-       @Cacheable(value = "cacheForWeathers",key = "#lat+':'+#lon")
-        public Main getWeather(@RequestParam String lat, @RequestParam String lon) {
-                String request = String.format("%s?lat=%s&lon=%s&units=metric&appid=%s", urlWeather, lat, lon, appId);
-                return restTemplate.getForObject(request, Root.class).getMain();
-        }
+    //http://localhost:8082/?lat=54.1838&lon=45.1749            <<<<<<<<<
+    @GetMapping
+    @Cacheable(value = "cacheForWeathers",key = "#lat+':'+#lon")
+    public Main getWeather(@RequestParam String lat, @RequestParam String lon) {
+        String request = String.format("%s?lat=%s&lon=%s&units=metric&appid=%s", urlWeather, lat, lon, appId);
+        return restTemplate.getForObject(request, Root.class).getMain();
+    }
 }
-
-

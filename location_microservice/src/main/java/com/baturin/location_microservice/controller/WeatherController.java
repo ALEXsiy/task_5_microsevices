@@ -17,6 +17,8 @@ public class WeatherController {
     private GeodataRepository repository;
     @Autowired
     private RestTemplate restTemplate;
+   // java -Dserver.port=8088 -Dspring.datasource.url=jdbc:h2:file:./data/locationsssdb -jar location_microservice\target\location_microservice-0.0.1-SNAPSHOT.jar
+
 
     @GetMapping("/weather")
     public  ResponseEntity<Weather> redirectRequestWeather(@RequestParam String location) {
