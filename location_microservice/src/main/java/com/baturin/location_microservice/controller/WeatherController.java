@@ -3,6 +3,7 @@ import com.baturin.location_microservice.model.Geodata;
 import com.baturin.location_microservice.model.Weather;
 import com.baturin.location_microservice.repository.GeodataRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +18,8 @@ public class WeatherController {
     private GeodataRepository repository;
     @Autowired
     private RestTemplate restTemplate;
+    @Value("${weather.url}")
+    String weatherUrl;
    // java -Dserver.port=8088 -Dspring.datasource.url=jdbc:h2:file:./data/locationsssdb -jar location_microservice\target\location_microservice-0.0.1-SNAPSHOT.jar
 
 
@@ -25,7 +28,7 @@ public class WeatherController {
         Optional<Geodata> geodata_optional = repository.findByName(location);
         if(geodata_optional.isPresent()) {
             Geodata geodata=geodata_optional.get();
-            String url = String.format("http://weather-info-service/?lat=%s&lon=%s", geodata.getLat(), geodata.getLon());
+            String url = String.format("http://%s/?lat=%s&lon=%s", weatherUrl, geodata.getLat(), geodata.getLon());
             Weather weather = restTemplate.getForObject(url, Weather.class);
             return new ResponseEntity<>(weather,HttpStatus.OK);
         }
